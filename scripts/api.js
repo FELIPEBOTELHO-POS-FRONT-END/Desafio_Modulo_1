@@ -1,6 +1,8 @@
+const apiPosts = axios.create({
+  baseURL: "https://api.covid19api.com/",
+});
 
-let cars = ['Palio', 'Uno', 'Gol', 'Saveiro', 'HB20', 'Creta', 'Nivus'];
-
-//Retornar o primeiro e ultimo elemento
-console.log(_.first(cars));
-console.log(_.last(cars));
+export async function getSummaryData() {
+  let res = await apiPosts.get("summary");
+  return res.data;
+}
