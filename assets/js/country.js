@@ -93,10 +93,10 @@ function generateChart(data, dataType) {
   LineChart = new Chart(document.getElementById("linhas"), {
     type: "line",
     data: {
-      labels: _.map(data, (item) => new Date(item.Date).toLocaleDateString()),
+      labels: _.map(data, (item) => dateFns.format(item.Date.split("T")[0],'DD/MM/YYYY')),
       datasets: [
         {
-          data: _.map(data, (item) => item[`Daily${dataType}`]),
+          data: _.map(data, (item) => Math.abs(item[`Daily${dataType}`])),
           label: `Número de ${title}`,
           borderColor: "rgb(60,186,159)",
           backgroundColor: "rgb(60,186,159,0.1)",
