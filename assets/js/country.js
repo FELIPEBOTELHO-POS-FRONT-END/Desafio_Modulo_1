@@ -74,10 +74,13 @@ async function filter() {
   }
 
   generateChart(dailyData, dataType);
+  generateKpisData(dailyData);
 }
 
 
 function generateChart(data, dataType) {
+  const select = document.getElementById("cmbCountry");
+  const country = select[select.selectedIndex].textContent;
   console.log(data);
   if (LineChart) {
     LineChart.destroy();
@@ -93,7 +96,7 @@ function generateChart(data, dataType) {
   LineChart = new Chart(document.getElementById("linhas"), {
     type: "line",
     data: {
-      labels: _.map(data, (item) => dateFns.format(item.Date.split("T")[0],'DD/MM/YYYY')),
+      labels: _.map(data, (item) => dateFns.format(item.Date.split("T")[0], 'DD/MM/YYYY')),
       datasets: [
         {
           data: _.map(data, (item) => Math.abs(item[`Daily${dataType}`])),
@@ -118,7 +121,7 @@ function generateChart(data, dataType) {
         },
         title: {
           display: true,
-          text: "Curva de Covid",
+          text: `Curva da COVID-19 (${country})` ,
         },
         layout: {
           padding: {
@@ -132,4 +135,12 @@ function generateChart(data, dataType) {
     },
   });
 }
-function generateKpisData(data) { }
+function generateKpisData(data) {
+  const divkpiconfirmed = document.getElementById("kpiconfirmed");
+  const divkpideaths = document.getElementById("kpideaths");
+  const divkpirecovered = document.getElementById("kpirecovered");
+
+  divkpideaths.textContent = _.last(data).Deaths.toLocaleString();
+  divkpiconfirmed.textContent = _.last(data).Confirmed.toLocaleString();
+  divkpirecovered.textContent = _.last(data).Recovered.toLocaleString();
+}
