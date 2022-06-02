@@ -35,12 +35,14 @@ async function filter() {
     alert("Please, fill all fields!");
     return;
   }
-  let IsoStartDate = new Date(startDate).toISOString();
-  let IsoEndDate = new Date(endDate).toISOString();
-  const allStatus = await getStatusByCountryAndDate(
+  const ISOStringStartDate = new Date(startDate).toISOString();
+  //Get one day befora, to calcule de day status
+  let dayBeforeStart = dateFns.format(dateFns.addDays(startDate, -1), 'YYYY-MM-DD');
+
+  let allStatus = await getStatusByCountryAndDate(
     country,
-    IsoStartDate,
-    IsoEndDate
+    dayBeforeStart,
+    endDate
   );
 
   //BUSCAR 1 DIA ANTES PARA OBTER NUMEROS DO DIA 0
@@ -48,9 +50,10 @@ async function filter() {
     alert("Please, use a week date range for this country");
     return;
   }
+  console.log(dateFns.differenceInCalendarDays(ISOStringStartDate, allStatus[0].Date));
 
-  const dailyData = _.map(allStatus, (data, index) => {
-    return {
+  let dailyData = _.map(allStatus, (data, index) => {
+    const obj = {
       ...data,
       DailyDeaths:
         index == 0 ? data.Deaths : data.Deaths - allStatus[index - 1].Deaths,
@@ -62,11 +65,17 @@ async function filter() {
         index == 0
           ? data.Confirmed
           : data.Confirmed - allStatus[index - 1].Confirmed,
-    };
+    }
+    return obj;
   });
+
+  if (dateFns.differenceInCalendarDays(ISOStringStartDate, dailyData[0].Date) > 0) {
+    dailyData = dailyData.slice(1);
+  }
 
   generateChart(dailyData, dataType);
 }
+
 
 function generateChart(data, dataType) {
   console.log(data);
@@ -78,8 +87,8 @@ function generateChart(data, dataType) {
     dataType == "Confirmed"
       ? "Confirmados"
       : dataType == "Deaths"
-      ? "Mortes"
-      : "Recuperados";
+        ? "Mortes"
+        : "Recuperados";
 
   LineChart = new Chart(document.getElementById("linhas"), {
     type: "line",
@@ -123,4 +132,4 @@ function generateChart(data, dataType) {
     },
   });
 }
-function generateKpisData(data) {}
+function generateKpisData(data) { }

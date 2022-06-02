@@ -15,7 +15,7 @@ export async function getCountries() {
 export async function getStatusByCountryAndDate(country, startDate, endDate) {
   try {
     let res = await apiPosts.get(
-      `/country/${country}?from=${startDate}&to=${endDate}`
+      `/country/${country}?from=${startDate}T00:00:00.000Z&to=${endDate}T00:00:00.000Z`
     );
     return res.data ?? false;
   } catch {
