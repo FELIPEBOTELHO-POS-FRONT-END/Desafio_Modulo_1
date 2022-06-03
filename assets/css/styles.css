@@ -1,0 +1,74 @@
+.center-content {
+  justify-content: center;
+}
+.left-content {
+  justify-content: left;
+}
+
+.left-align {
+  text-align: left;
+}
+
+.bg-card {
+  background: #434141a8;
+}
+
+.bg-card-secondary {
+  background: #5b5959a8;
+}
+
+.card-father {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.card-father-row {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
+.flex-center {
+  display: flex;
+  justify-content: center;
+}
+
+.card-son {
+  display: flex;
+  align-items: center;
+  justify-content: right;
+  flex-direction: column;
+  max-height: 5rem;
+  max-width: 20rem;
+  width: 100%;
+}
+
+.custom-input {
+  color-scheme: dark;
+  border: none;
+  background: #5b5959a8;
+  color: #fff;
+}
+
+input:focus {
+  background-color: #5b5959a8 !important;
+  color: #fff !important;
+}
+
+select:focus {
+  background-color: #5b5959a8 !important;
+  color: #fff !important;
+}
+
+input,
+select {
+  margin-bottom: 10px !important;
+  margin-top: 5px !important;
+}
+
+label {
+  font-size: large;
+}

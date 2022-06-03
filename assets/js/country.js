@@ -37,7 +37,10 @@ async function filter() {
   }
   const ISOStringStartDate = new Date(startDate).toISOString();
   //Get one day befora, to calcule de day status
-  let dayBeforeStart = dateFns.format(dateFns.addDays(startDate, -1), 'YYYY-MM-DD');
+  let dayBeforeStart = dateFns.format(
+    dateFns.addDays(startDate, -1),
+    "YYYY-MM-DD"
+  );
 
   let allStatus = await getStatusByCountryAndDate(
     country,
@@ -50,7 +53,9 @@ async function filter() {
     alert("Please, use a week date range for this country");
     return;
   }
-  console.log(dateFns.differenceInCalendarDays(ISOStringStartDate, allStatus[0].Date));
+  console.log(
+    dateFns.differenceInCalendarDays(ISOStringStartDate, allStatus[0].Date)
+  );
 
   let dailyData = _.map(allStatus, (data, index) => {
     const obj = {
@@ -65,18 +70,19 @@ async function filter() {
         index == 0
           ? data.Confirmed
           : data.Confirmed - allStatus[index - 1].Confirmed,
-    }
+    };
     return obj;
   });
 
-  if (dateFns.differenceInCalendarDays(ISOStringStartDate, dailyData[0].Date) > 0) {
+  if (
+    dateFns.differenceInCalendarDays(ISOStringStartDate, dailyData[0].Date) > 0
+  ) {
     dailyData = dailyData.slice(1);
   }
 
   generateChart(dailyData, dataType);
   generateKpisData(dailyData);
 }
-
 
 function generateChart(data, dataType) {
   const select = document.getElementById("cmbCountry");
@@ -90,25 +96,27 @@ function generateChart(data, dataType) {
     dataType == "Confirmed"
       ? "Confirmados"
       : dataType == "Deaths"
-        ? "Mortes"
-        : "Recuperados";
+      ? "Mortes"
+      : "Recuperados";
 
   LineChart = new Chart(document.getElementById("linhas"), {
     type: "line",
     data: {
-      labels: _.map(data, (item) => dateFns.format(item.Date.split("T")[0], 'DD/MM/YYYY')),
+      labels: _.map(data, (item) =>
+        dateFns.format(item.Date.split("T")[0], "DD/MM/YYYY")
+      ),
       datasets: [
         {
           data: _.map(data, (item) => Math.abs(item[`Daily${dataType}`])),
           label: `Número de ${title}`,
-          borderColor: "rgb(60,186,159)",
-          backgroundColor: "rgb(60,186,159,0.1)",
+          borderColor: "red",
+          backgroundColor: "red",
         },
         {
           data: _.map(data, () => AvgDataType),
           label: `Média de ${title}`,
-          borderColor: "rgb(255,140,13)",
-          backgroundColor: "rgb(255,140,13, 0.1)",
+          borderColor: "orange",
+          backgroundColor: "orange",
         },
       ],
     },
@@ -116,12 +124,23 @@ function generateChart(data, dataType) {
       responsive: true,
       plugins: {
         legend: {
+          color: "#fff",
           display: true,
+          title: {
+            color: "#fff",
+          },
           position: "left", //top, bottom, left, rigth
+          labels: {
+            color: "#fff",
+          },
         },
         title: {
           display: true,
-          text: `Curva da COVID-19 (${country})` ,
+          color: "#fff",
+          text: `Curva da COVID-19 (${country})`,
+          font: {
+            size: 25,
+          },
         },
         layout: {
           padding: {

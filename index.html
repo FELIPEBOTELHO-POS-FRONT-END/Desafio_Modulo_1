@@ -5,66 +5,92 @@
     <title>Números da Covid</title>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.2.0/chart.min.js"></script>
-
     <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.21/lodash.min.js"></script>
-
     <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js"></script>
-    <script src="http://cdn.date-fns.org/v2.21.0/date_fns.min.js"></script>
-
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/date-fns/2.0.0-alpha0/date_fns.min.js"></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2"
+      crossorigin="anonymous"
+    ></script>
 
     <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css"
       rel="stylesheet"
-      type="text/css"
-      href="assets\css\keen-dashboards.css"
+      integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor"
+      crossorigin="anonymous"
     />
-  </head>
+    <link rel="stylesheet" href="./assets/css/styles.css">
 
-  <body class="keen-dashboard">
-    <div class="container">
-      <div class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-        <div class="navbar-collapse">
-          <ul class="navbar-nav nav main-nav">
-            <li><a href="./index.html">Home</a></li>
-            <li><a href="./country.html">País</a></li>
-            <li><a href="#">Top 5</a></li>
+
+  <body class="text-white bg-dark">
+    <nav class="navbar navbar-expand-lg bg-light">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="#">COVID-19</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <li class="nav-item">
+              <a class="nav-link active" aria-current="page" href="./index.html">Home</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="./country.html">Países</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">Top 5</a>
+            </li>
           </ul>
         </div>
       </div>
-    </div>
+    </nav>
 
-    <div class="container grid grid-two-and-one">
-      <div class="chart-wrapper">
-        <div class="containerkpi wrapkpi">
-          <section class="itemkpi">
-            <h5>Total Confirmados</h5>
-            <p id="confirmed"></p>
-          </section>
-          <section class="itemkpi">
-            <h5>Total Mortes</h5>
-            <p id="death"></p>
-          </section>
-          <section class="itemkpi">
-            <h5>Total Recuperados</h5>
-            <p id="recovered"></p>
-          </section>
+    <section>
+      <div class="row center-content pt-5">
+        <div class="col col-4">
+            <div class="card text-center bg-card color-white">
+              <div class="card-body card-father">
+                <article class="card  bg-card-secondary color-white card-son m-3">
+                  <h5>Total Confirmados</h5>
+                  <p id="confirmed"></p>
+                </article>
+                <article class="card  bg-card-secondary color-white card-son m-3">
+                  <h5>Total Mortes</h5>
+                  <p id="death"></p>
+                </article>
+                <article class="card  bg-card-secondary color-white card-son m-3">
+                  <h5>Total Recuperados</h5>
+                  <p id="recovered"></p>
+                </article>
+              </div>
+              <div class="card-footer text-muted">
+                <div class="chart-notes text-secondary left-align" id="date">
+                  Data de atualização: <span></span>
+                </div>
+              </div>
+            </div>
         </div>
-        <div class="chart-notes" id="date">Data de atualização: <span></span></div>
-      </div>
-      <div class="chart-wrapper">
-        <div class="chart-stage">
-          <canvas id="pizza" width="100" height="50"></canvas>
-          <!--Adicionar grafico-->
-        </div>
-      </div>
-      <div class="two">
-        <div class="chart-wrapper">
-          <div class="chart-stage">
-            <!--Adicionar grafico-->
-            <canvas id="barras" width="300" height="100"></canvas>
+        
+        <div class="col col-4">
+          <div class="card bg-card color-white" style="padding:1rem">
+            <canvas id="pizza" width="100" height="50"></canvas>
           </div>
         </div>
       </div>
-    </div>
+      
+      <div class="row center-content pt-4">
+        <div class="col col-8">
+          <div class="card bg-card color-white" style="padding:1rem">
+            <div class="">
+              <canvas id="barras" width="300" height="100"></canvas>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+
     <script type="module" src="/assets/js/index.js"></script>
   </body>
 </html>

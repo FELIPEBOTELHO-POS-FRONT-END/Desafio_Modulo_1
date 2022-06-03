@@ -33,7 +33,7 @@ function generateBarChart(data) {
         {
           label: "Nº de Mortes",
           data: _.map(datas, "TotalDeaths"),
-          backgroundColor: "purple",
+          backgroundColor: "#6f42c1",
         },
       ],
     },
@@ -41,9 +41,17 @@ function generateBarChart(data) {
       reponsive: true,
       plugins: {
         legend: {
+          color: "white",
           position: "top",
+          title: {
+            color: "white",
+          },
+          labels: {
+            color: "white",
+          },
         },
         title: {
+          color: "white",
           display: true,
           text: "Total de Mortes por País - Top 10",
           font: {
@@ -63,7 +71,7 @@ function generatePieChart(data) {
       datasets: [
         {
           data: [data.NewRecovered, data.NewDeaths, data.NewConfirmed],
-          backgroundColor: ["blue", "yellow", "red"],
+          backgroundColor: ["#198754", "#dc3545", "#6610f2"],
         },
       ],
     },
@@ -71,9 +79,17 @@ function generatePieChart(data) {
       responsive: true,
       plugins: {
         legend: {
+          color: "white",
+          title: {
+            color: "white",
+          },
           position: "top",
+          labels: {
+            color: "white",
+          },
         },
         title: {
+          color: "white",
           display: true,
           text: "Distribuição de novos casos",
           font: {
