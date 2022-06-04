@@ -53,6 +53,10 @@ async function filter() {
     alert("Please, use a week date range for this country");
     return;
   }
+
+  if (allStatus[0].Province) {
+    allStatus = fixDataWithProvince(allStatus);
+  }
   console.log(
     dateFns.differenceInCalendarDays(ISOStringStartDate, allStatus[0].Date)
   );
@@ -82,6 +86,24 @@ async function filter() {
 
   generateChart(dailyData, dataType);
   generateKpisData(dailyData);
+}
+
+function fixDataWithProvince(data) {
+  let grupo = _.groupBy(data, "Date");
+  let newGroup = Object.entries(grupo);
+  let novoArray = [];
+
+  _.forEach(newGroup, function (item, index) {
+    let Obj = {
+      Date: item[0],
+      Country: item[1][0].Country,
+      Deaths: _.sumBy(item[1], "Deaths"),
+      Confirmed: _.sumBy(item[1], "Confirmed"),
+      Recovered: _.sumBy(item[1], "Recovered"),
+    };
+    novoArray.push(Obj);
+  });
+  return novoArray;
 }
 
 function generateChart(data, dataType) {
